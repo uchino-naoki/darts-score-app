@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Darts</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 名前入力 -->
+  <div class="player-box">
+    <input type="text" id="playerName" placeholder="名前を入力">
+    <button id="startBtn">スタート</button>
+  </div>
+
+  <!-- ハイスコア -->
+  <div id="myBestScore"></div>
+
+  <!-- スコア情報 -->
+  <div id="scoreInfo">
+    <div>Round <span id="round">0</span>/8</div>
+    <div>Throw <span id="throw">0</span>/3</div>
+    <div class="totalScore">Total <span id="total">0</span></div>
+  </div>
+
+  <!-- Undo -->
+  <button id="undoBtn">1投戻す</button>
+
+  <!-- ダーツボード -->
+  <canvas id="board" width="400" height="400"></canvas>
+
+  <!-- 履歴 -->
+  <div id="roundDetails"></div>
+
+  <!-- ランキング -->
+  <h2>Top 10 Ranking</h2>
+  <div id="rankingList"></div>
+
+  <!-- 管理ボタン -->
+  <button id="adminBtn" style="font-size:12px; opacity:0.4;">
+    管理
+  </button>
+ 
+  <!-- スクリプト実行 -->
+  <script src="app.js"></script>
+
+</body>
+</html>
