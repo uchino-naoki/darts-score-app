@@ -18,7 +18,7 @@ jobs:
         run: echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: index.htmlにバージョン付与
-        run |
+        run: |
           sed -i "s/app.js/app.js?v=${COMMIT_SHA}/g" index.html
           sed -i "s/style.css/style.css?v=${COMMIT_SHA}/g" index.html
 
