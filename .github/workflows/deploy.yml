@@ -19,8 +19,8 @@ jobs:
 
       - name: index.htmlにバージョン付与
         run: |
-          sed -i "s|app.js(\?v=[^\"']*)*|app.js?v=${COMMIT_SHA}/g" index.html
-          sed -i "s|style.css(\?v=[^\"']*)*||style.css?v=${COMMIT_SHA}/g" index.html
+          sed -i "s|app.js(\?v=[^\"`]*)*|app.js?v=${COMMIT_SHA}/g" index.html
+          sed -i "s|style.css(\?v=[^\"`]*)*||style.css?v=${COMMIT_SHA}/g" index.html
 
       - name: AWS認証
         uses: aws-actions/configure-aws-credentials@v2
