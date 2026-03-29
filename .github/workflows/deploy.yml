@@ -41,4 +41,5 @@ jobs:
           aws s3 cp index.html s3://darts-app-bucket/index.html \
             --content-type "text/html; charset=utf-8" \
             --cache-control "no-cache, no-store, must-revalidate"
-
+      - name: index.html確認
+        run: cat index.html
