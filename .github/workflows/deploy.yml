@@ -1,0 +1,35 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: コード取得
+        uses: actions/checkout@v3
+
+      - name: AWS認証
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      - name: S3へ同期（通常ファイル）
+        run: |
+          aws s3 sync . s3://darts-app-bucket \
+            --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*"
+
+      - name: index.htmlを最適化（キャッシュ無効＋文字コード）
+        run: |
+          aws s3 cp index.html s3://darts-app-bucket/index.html \
+            --content-type "text/html; charset=utf-8" \
+            --cache-control "no-cache, no-store, must-revalidate"
+
