@@ -52,7 +52,7 @@ jobs:
             BUCKET="darts-app-prod-bucket"
           else
             echo "Deploy to DEV"
-            BUCKET="Darts-app-bucket"
+            BUCKET="darts-app-bucket"
           fi
 
           aws s3 cp index.html s3://$BUCKET/index.html \
