@@ -31,14 +31,14 @@ jobs:
 
       - name: S3へ同期（通常ファイル）
         run: |
-          aws s3 sync . s3://darts-app-prod-bucket \
+          aws s3 sync . s3://darts-app-bucket \
             --delete \
             --exclude ".git/*" \
             --exclude ".github/*"
 
       - name: index.htmlを最適化（キャッシュ無効＋文字コード）
         run: |
-          aws s3 cp index.html s3://darts-app-prod-bucket/index.html \
+          aws s3 cp index.html s3://darts-app-bucket/index.html \
             --content-type "text/html; charset=utf-8" \
             --cache-control "no-cache, no-store, must-revalidate"
       - name: index.html確認
