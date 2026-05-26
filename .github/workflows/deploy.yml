@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
 
 jobs:
   deploy:
@@ -29,9 +30,18 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-1
 
+
       - name: S3へ同期（通常ファイル）
         run: |
-          aws s3 sync . s3://darts-app-prod-bucket \
+          if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
+            echo  "Deploy to PROD"
+            BUCKET="darts-app-prod-bucket"
+          else
+            echo "Deploy to Dev"
+            BUCKET="darts-app-bucket"
+          fi
+
+          aws s3 sync . s3://$BUCKET \
             --delete \
             --exclude ".git/*" \
             --exclude ".github/*"
