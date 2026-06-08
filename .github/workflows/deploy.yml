@@ -48,7 +48,15 @@ jobs:
 
       - name: index.htmlを最適化（キャッシュ無効＋文字コード）
         run: |
-          aws s3 cp index.html s3://darts-app-prod-bucket/index.html \
+          if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
+            echo  "Deploy to PROD"
+            BUCKET="darts-app-prod-bucket"
+          else
+            echo "Deploy to Dev"
+            BUCKET="darts-app-bucket"
+          fi
+
+          aws s3 cp index.html s3://$BUCKET/index.html \
             --content-type "text/html; charset=utf-8" \
             --cache-control "no-cache, no-store, must-revalidate"
       - name: index.html確認
