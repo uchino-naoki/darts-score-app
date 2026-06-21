@@ -2,9 +2,8 @@ AWSTemplateFormatVersion: '2010-09-09'
 
 Resources:
 
-  DartRinkingTable:
+  DartRankingTable:
     Type: AWS::DynamoDB::Table
-
     Properties:
       TableName: dart-ranking-cfn-dev
 
@@ -17,7 +16,7 @@ Resources:
       KeySchema:
         - AttributeName: playerId
           KeyType: HASH
-  
+
 Outputs:
   TableName:
     Value: !Ref DartRankingTable
