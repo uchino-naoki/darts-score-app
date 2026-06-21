@@ -4,6 +4,7 @@ Resources:
 
   DartRinkingTable:
     Type: AWS::DynamoDB::Table
+
     Properties:
       TableName: dart-ranking-cfn-dev
 
@@ -17,7 +18,6 @@ Resources:
         - AttributeName: playerId
           KeyType: HASH
   
-  Outputs:
-    TableName:
-      Value: !Ref DartRankingTable
-      
+Outputs:
+  TableName:
+    Value: !Ref DartRankingTable
