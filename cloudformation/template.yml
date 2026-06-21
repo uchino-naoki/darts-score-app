@@ -17,6 +17,11 @@ Resources:
         - AttributeName: playerId
           KeyType: HASH
 
+  DartAppBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: darts-app-cfn-dev-bucket
+
 Outputs:
   TableName:
     Value: !Ref DartRankingTable
