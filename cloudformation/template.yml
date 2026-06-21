@@ -17,3 +17,7 @@ Resources:
         - AttributeName: playerId
           KeyType: HASH
   
+  Outputs:
+    TableName:
+      Value: !Ref DartRankingTable
+      
