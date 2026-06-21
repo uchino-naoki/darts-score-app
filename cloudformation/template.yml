@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Resources:
+
+  DartRinkingTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: dart-ranking-cfn-dev
+
+      BillingMode: PAY_PER_REQUEST
+
+      AttributeDefinitions:
+        - AttributeName: playerId
+          AttributeType: S
+
+      KeySchema:
+        - AttributeName: playerId
+          KeyType: HASH
+  
