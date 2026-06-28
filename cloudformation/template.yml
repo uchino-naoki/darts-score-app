@@ -22,8 +22,54 @@ Resources:
     Properties:
       BucketName: darts-app-cfn-dev-bucket
 
+  DartLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: dart-lambda-role-cfn-dev
+
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+      Policies:
+        - PolicyName: DynameDBAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:DeleteItem
+                  - dynamodb:Scan
+                Resource: !GetAtt DartRankingTable.Arn
+
   DartLambda:
     Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: dart-lambda-cfn-dev
+      Runtime: nodejs20.x
+      Handler: index.handler
+      Role: !GetAtt DartLambdaRole.Arn
+
+      Code:
+        ZipFile: |
+          exports.handler = async () => {
+            console.log("Hello CloudFormation!");
+            return {
+              statusCode: 200,
+              body: "Hello World"
+            };
+          };
 
 Outputs:
   TableName:
