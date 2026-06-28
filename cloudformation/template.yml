@@ -22,6 +22,9 @@ Resources:
     Properties:
       BucketName: darts-app-cfn-dev-bucket
 
+  DartLambda:
+    Type: AWS::Lambda::Function
+
 Outputs:
   TableName:
     Value: !Ref DartRankingTable
