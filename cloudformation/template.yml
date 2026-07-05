@@ -64,10 +64,10 @@ Resources:
       Code:
         ZipFile: |
           exports.handler = async () => {
-            console.log("Hello CloudFormation!");
+            console.log("CloudFormation Update!");
             return {
               statusCode: 200,
-              body: "Hello World"
+              body: "CloudFormation Update"
             };
           };
 
