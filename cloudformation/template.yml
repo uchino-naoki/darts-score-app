@@ -71,6 +71,12 @@ Resources:
             };
           };
 
+  DartHttpApi:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: dart-api-cfn-dev
+      ProtocolType: HTTP
+
 Outputs:
   TableName:
     Value: !Ref DartRankingTable
