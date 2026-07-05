@@ -77,6 +77,14 @@ Resources:
       Name: dart-api-cfn-dev
       ProtocolType: HTTP
 
+  DartHttpApiIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref DartHttpApi
+      IntegrationType: AWS_PROXY
+      IntegrationUrl: !GetAtt DartLambda.Arn
+      PayloadFormatVersion: "2.0"
+
 Outputs:
   TableName:
     Value: !Ref DartRankingTable
