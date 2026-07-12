@@ -82,8 +82,18 @@ Resources:
     Properties:
       ApiId: !Ref DartHttpApi
       IntegrationType: AWS_PROXY
-      IntegrationUrl: !GetAtt DartLambda.Arn
+      IntegrationUri: !GetAtt DartLambda.Arn
       PayloadFormatVersion: "2.0"
+
+  DartHttpApiRouteScore:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref DartHttpApi
+      RouteKey: GET /score
+      Target: !Join
+        /
+          integrations
+          !Ref DartHttpApiIntegration
 
 Outputs:
   TableName:
