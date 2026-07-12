@@ -91,9 +91,9 @@ Resources:
       ApiId: !Ref DartHttpApi
       RouteKey: GET /score
       Target: !Join
-        /
-          integrations
-          !Ref DartHttpApiIntegration
+        - /
+        - - integrations
+          - !Ref DartHttpApiIntegration
 
 Outputs:
   TableName:
