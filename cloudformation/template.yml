@@ -41,7 +41,7 @@ Resources:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
 
       Policies:
-        - PolicyName: DynameDBAccess
+        - PolicyName: DynamoDBAccess
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
@@ -71,6 +71,14 @@ Resources:
             };
           };
 
+  DartLambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt DartLambda.Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${DartHttpApi}/*/*/*"
+
   DartHttpApi:
     Type: AWS::ApiGatewayV2::Api
     Properties:
@@ -85,6 +93,36 @@ Resources:
       IntegrationUri: !GetAtt DartLambda.Arn
       PayloadFormatVersion: "2.0"
 
+  DartHttpApiRouteDelete:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref DartHttpApi
+      RouteKey: DELETE /delete
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref DartHttpApiIntegration
+
+  DartHttpApiRouteRanking:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref DartHttpApi
+      RouteKey: GET /ranking
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref DartHttpApiIntegration
+
+  DartHttpApiRouteSave:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref DartHttpApi
+      RouteKey: POST /save
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref DartHttpApiIntegration
+
   DartHttpApiRouteScore:
     Type: AWS::ApiGatewayV2::Route
     Properties:
@@ -94,6 +132,13 @@ Resources:
         - /
         - - integrations
           - !Ref DartHttpApiIntegration
+
+  DartHttpApiStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref DartHttpApi
+      StageName: $default
+      AutoDeploy: true
 
 Outputs:
   TableName:
