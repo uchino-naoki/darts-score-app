@@ -22,6 +22,23 @@ Resources:
     Properties:
       BucketName: darts-app-cfn-dev-bucket
 
+  DartAppBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref DartAppBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowCloudFrontServicePrincipal
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub "arn:aws:s3:::${DartAppBucket}/*
+            Condition: 
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${DartAppCloudFront}"
+
   DartLambdaRole:
     Type: AWS::IAM::Role
     Properties:
@@ -139,6 +156,37 @@ Resources:
       ApiId: !Ref DartHttpApi
       StageName: $default
       AutoDeploy: true
+
+  DartAppCloudFront:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistibutionConfig:
+        Origins:
+          - Id: DartAppS3Origin
+            DomainName: !GetAtt DartAppBucket.RegionalDomainName
+            OriginAccessControlId: !Ref DartAppOriginAccessControl
+
+        DefaultCacheBehavior:
+          TargetOriginId: DartAppS3Origin
+          ViewerProtocolPliciy: redirect-to-Https
+          AllowedMethods:
+            - GET
+            - HEAD
+          CachedMethods: 
+            - GET
+            - HEAD
+
+        DefaultRootObject: index.html
+        Enabled: true
+
+  DartAppOriginAcccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: DartAppOAC
+        OriginAccessControlOriginType: s3
+        SigningProtocol: sigv4
+        SigningBehavior: always
 
 Outputs:
   TableName:
