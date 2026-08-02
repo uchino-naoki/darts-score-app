@@ -79,14 +79,12 @@ Resources:
       Role: !GetAtt DartLambdaRole.Arn
 
       Code:
-        ZipFile: |
-          exports.handler = async () => {
-            console.log("CloudFormation Update!");
-            return {
-              statusCode: 200,
-              body: "CloudFormation Update"
-            };
-          };
+        S3Bucket: !Ref DartAppBucket
+        S3Key: lambda/saveDartScore.zip
+
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref DartRankingTable
 
   DartLambdaPermission:
     Type: AWS::Lambda::Permission

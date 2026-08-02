@@ -10,7 +10,7 @@ import {
 const client = new DynamoDBClient({});
 const ddb = DynamoDBDocumentClient.from(client);
 
-const TABLE_NAME = "dart-ranking";
+const TABLE_NAME = Process.env.TABLE_NAME;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
