@@ -34,7 +34,7 @@ Resources:
             Principal:
               Service: cloudfront.amazonaws.com
             Action: s3:GetObject
-            Resource: !Sub "arn:aws:s3:::${DartAppBucket}/*
+            Resource: !Sub "arn:aws:s3:::${DartAppBucket}/*"
             Condition: 
               StringEquals:
                 AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${DartAppCloudFront}"
@@ -160,26 +160,31 @@ Resources:
   DartAppCloudFront:
     Type: AWS::CloudFront::Distribution
     Properties:
-      DistibutionConfig:
+      DistributionConfig:
         Origins:
           - Id: DartAppS3Origin
             DomainName: !GetAtt DartAppBucket.RegionalDomainName
             OriginAccessControlId: !Ref DartAppOriginAccessControl
+            S3OriginConfig: {}
 
         DefaultCacheBehavior:
           TargetOriginId: DartAppS3Origin
-          ViewerProtocolPliciy: redirect-to-Https
+          ViewerProtocolPolicy: redirect-to-https
           AllowedMethods:
             - GET
             - HEAD
           CachedMethods: 
             - GET
             - HEAD
+          ForwardedValues:
+            QueryString: false
+            Cookies:
+              Forward: none
 
         DefaultRootObject: index.html
         Enabled: true
 
-  DartAppOriginAcccessControl:
+  DartAppOriginAccessControl:
     Type: AWS::CloudFront::OriginAccessControl
     Properties:
       OriginAccessControlConfig:

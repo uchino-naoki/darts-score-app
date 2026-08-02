@@ -1,3 +1,5 @@
+const API_BASE_URL = "https://x2g3f6m0b7.execute-api.ap-northeast-1.amazonaws.com";
+
 let outerBlack = 180; // ●外枠
 let doubleOuter = 150;
 let doubleInner = 130;
@@ -384,7 +386,7 @@ loadRanking();
 // ●セーブスコア
 async function saveScore(score) {
 
-  await fetch("https://x2g3f6m0b7.execute-api.ap-northeast-1.amazonaws.com/save", {
+  await fetch("${API_BASE_URL}/save", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -404,7 +406,7 @@ async function saveScore(score) {
 // ●ロードランキング
 async function loadRanking() {
   try {
-    const response = await fetch("https://x2g3f6m0b7.execute-api.ap-northeast-1.amazonaws.com/ranking");
+    const response = await fetch("${API_BASE_URL}/ranking");
 
 
     const data = await response.json();
@@ -488,7 +490,7 @@ async function loadMyBestScore() {
   if (!currentPlayer) return;
 
   const response = await fetch(
-    `https://x2g3f6m0b7.execute-api.ap-northeast-1.amazonaws.com/score?playerId=${currentPlayer}`
+    `${API_BASE_URL}/score?playerId=${currentPlayer}`
   );
 
   const data = await response.json();
@@ -510,7 +512,7 @@ async function deleteScore(playerId) {
   }
 
   await fetch(
-    `https://x2g3f6m0b7.execute-api.ap-northeast-1.amazonaws.com/delete?playerId=${playerId}`,
+    `${API_BASE_URL}/delete?playerId=${playerId}`,
     {
       method: "DELETE"
     }
