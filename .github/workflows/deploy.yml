@@ -38,7 +38,7 @@ jobs:
             BUCKET="darts-app-prod-bucket"
           else
             echo "Deploy to Dev"
-            BUCKET="darts-app-bucket"
+            BUCKET="darts-app-cfn-dev-bucket"
           fi
 
           aws s3 sync . s3://$BUCKET \
@@ -53,7 +53,7 @@ jobs:
             BUCKET="darts-app-prod-bucket"
           else
             echo "Deploy to Dev"
-            BUCKET="darts-app-bucket"
+            BUCKET="darts-app-cfn-dev-bucket"
           fi
 
           aws s3 cp index.html s3://$BUCKET/index.html \
