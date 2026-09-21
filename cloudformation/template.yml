@@ -99,6 +99,16 @@ Resources:
     Properties:
       Name: dart-api-cfn-dev
       ProtocolType: HTTP
+      CorsConfiguration:
+        AllowOrigins:
+          - https://d3n3i6ndmomxrb.cloudfront.net/
+        AllowMethods:
+          - GET
+          - POST
+          - DELETE
+          - OPTIONS
+        AllowHeaders:
+          - Content-Type
 
   DartHttpApiIntegration:
     Type: AWS::ApiGatewayV2::Integration
