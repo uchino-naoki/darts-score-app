@@ -386,7 +386,7 @@ loadRanking();
 // ●セーブスコア
 async function saveScore(score) {
 
-  await fetch("${API_BASE_URL}/save", {
+  await fetch(`${API_BASE_URL}/save`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -406,7 +406,7 @@ async function saveScore(score) {
 // ●ロードランキング
 async function loadRanking() {
   try {
-    const response = await fetch("${API_BASE_URL}/ranking");
+    const response = await fetch(`${API_BASE_URL}/ranking`);
 
 
     const data = await response.json();
