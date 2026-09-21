@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://x2g3f6m0b7.execute-api.ap-northeast-1.amazonaws.com";
+const API_BASE_URL = "https://qlq6mqzl79.execute-api.ap-northeast-1.amazonaws.com";
 
 let outerBlack = 180; // ●外枠
 let doubleOuter = 150;
