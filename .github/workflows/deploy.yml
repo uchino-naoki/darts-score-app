@@ -26,7 +26,7 @@ jobs:
       - name: Lambda ZIP作成
         run: |
           cd lambda/saveDartScore
-          zip ../saveDartScore_v5.zip index.mjs
+          zip ../saveDartScore_v6.zip index.mjs
 
       - name: AWS認証
         uses: aws-actions/configure-aws-credentials@v2
