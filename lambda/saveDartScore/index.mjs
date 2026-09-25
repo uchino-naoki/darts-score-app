@@ -1,3 +1,4 @@
+console.log("DartsApp Lambda v4");
 console.log("Lambda GitHub Deploy Test v3");
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {

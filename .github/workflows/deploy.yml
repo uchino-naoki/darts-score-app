@@ -26,7 +26,7 @@ jobs:
       - name: Lambda ZIP作成
         run: |
           cd lambda/saveDartScore
-          zip ../saveDartScore.zip index.mjs
+          zip ../saveDartScore_v4.zip index.mjs
 
       - name: AWS認証
         uses: aws-actions/configure-aws-credentials@v2
@@ -74,4 +74,4 @@ jobs:
             --change-set-name github-actions-${GITHUB_SHA} \
             --change-set-type UPDATE \
             --template-url https://darts-app-cfn-dev-bucket.s3.ap-northeast-1.amazonaws.com/cloudformation/template.yml
-            
+

@@ -80,7 +80,7 @@ Resources:
 
       Code:
         S3Bucket: !Ref DartAppBucket
-        S3Key: lambda/saveDartScore_v3.zip
+        S3Key: lambda/saveDartScore_v4.zip
 
       Environment:
         Variables:
