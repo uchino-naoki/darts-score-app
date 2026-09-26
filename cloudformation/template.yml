@@ -208,3 +208,6 @@ Outputs:
   Environment:
     Value: dev
 
+  LambdaName:
+    Value: !Ref DartLambda
+    
