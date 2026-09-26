@@ -1,5 +1,10 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+
 Resources:
 
   DartRankingTable:
@@ -204,7 +209,7 @@ Resources:
 Outputs:
   Environment:
     Description: Environment name
-    Value: dev
+    Value: !Ref Environment
 
   BucketName:
     Description: S3 bucket name
@@ -225,4 +230,5 @@ Outputs:
   TableName:
     Description: DynamoDB table name
     Value: !Ref DartRankingTable
+
 
