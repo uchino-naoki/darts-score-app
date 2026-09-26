@@ -202,12 +202,27 @@ Resources:
         SigningBehavior: always
 
 Outputs:
-  TableName:
-    Value: !Ref DartRankingTable
-
   Environment:
+    Description: Environment name
     Value: dev
 
+  BucketName:
+    Description: S3 bucket name
+    Value: !Ref DartAppBucket
+
+  CloudFrontDomainName:
+    Description: CloudFront distibution domain name
+    Value: !GetAtt DartAppCloudFront.DomainName
+
+  ApiEndpoint:
+    Description: API Gateway endpoint
+    Value: !GetAtt DartHttpApi.ApiEndpoint
+
   LambdaName:
+    Description: Lambda function name
     Value: !Ref DartLambda
-    
+
+  TableName:
+    Description: DynamoDB table name
+    Value: !Ref DartRankingTable
+
